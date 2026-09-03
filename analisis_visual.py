@@ -4,30 +4,22 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 1. Conexión a base de datos local (patrón Clase 4)
+# Conexión a base de datos local creada en el script anterior
 conexion = sqlite3.connect('datos_mision.db')
 
-# 2. Consulta SQL para extraer datos con filtros
+# Consulta SQL para extraer los datos
 consulta = """
 SELECT z, g_r, class 
 FROM objetos
 """
 
-# 3. Pandas ejecuta la consulta y convierte a DataFrame
+# Leer la consulta y convertir a DataFrame
 data = pd.read_sql_query(consulta, conexion)
 conexion.close()
 
-# 4. Validación de datos post-lectura
 print("--- Datos Cargados desde BD ---")
-print(f"Registros extraídos: {len(data)}")
-print(f"\nValores nulos:")
-print(data.isnull().sum())
-print(f"\nEstadísticas:")
-print(data.describe())
-print(f"\nDistribución por clase:")
-print(data['class'].value_counts())
 
-# 5. Graficar índice de color vs redshift
+# Graficar índice de color vs redshift
 plt.style.use('dark_background')
 plt.figure(figsize=(10, 6))
 
@@ -43,7 +35,7 @@ plt.grid(True, which='both', linestyle='--', alpha=0.5)
 plt.axhline(0, color='grey', linewidth=0.8)
 plt.legend(title='Clase', loc='best')
 
-# 6. Guardar imagen con alta resolución
+# Guardar imagen
 plt.tight_layout()
 plt.savefig('resultado.png', dpi=300, bbox_inches='tight')
 
