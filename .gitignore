@@ -1,8 +1,0 @@
-# Archivos generados localmente (no incluir en control de versiones)
-*.db
-*.png
-*.csv
-__pycache__/
-*.pyc
-.DS_Store
-.instructions.md
