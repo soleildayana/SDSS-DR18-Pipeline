@@ -1,5 +1,5 @@
 # SDSS-DR18-Pipeline
-# Análisis de la Expansión del Universo mediante Índice de Color y Corrimiento al Rojo
+# Análisis de la Expansión del Universo mediante Índice de Color y Redshift
 **Soleil Dayana Niño Murcia**
 
 Universidad de Antioquia | **Curso**: Minería de Datos en Astronomía  
@@ -38,8 +38,6 @@ JOIN SpecObj AS s ON p.objid = s.bestobjid
 
 ## 3. Metodología
 
-
-
 ### 3.1 Limpieza
 El CSV descargado contiene estrellas (class = STAR) junto con galaxias y cuásares. Estas son descartadas porque su índice de color no es comparable al de galaxias o cuásares, al no formarse en entornos cosmológicos no se puede pretender evidenciar la expansión cósmica en ellas. 
 Así, al aplicar el filtro `class != 'STAR'`, se obtiene un dataset limpio que deja una muestra de alrededor de dos mil objetos (1,941 galaxias + 453 quásares).
@@ -55,8 +53,10 @@ Un valor bajo en este índice (g−r ≈ 0 a 1) indica objetos azules: estrellas
 
 ### 3.3 Corrimiento al Rojo (Redshift)
 
-El redshift $z$ mide el desplazamiento de líneas espectrales hacia longitudes de onda mayores:
-$$z = \frac{\lambda_{obs} - \lambda_{rest}}{\lambda_{rest}}$$
+El redshift $z$ mide el desplazamiento de líneas espectrales hacia longitudes de onda mayores, tal que:
+- $z$ bajo (z < 0.5): Galaxias del universo local, distancias < 2 Gpc.
+- $z$ intermedio (0.5 < z < 2): Universo de edades intermedias.
+- $z$ alto (z > 2): Objetos primordiales, universo temprano.
 
 
 ## 4. Resultados
