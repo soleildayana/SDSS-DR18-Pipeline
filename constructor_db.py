@@ -1,18 +1,15 @@
+# Este script lee y procesa el csv crudo, para posteriormente ser guardado en una base de datos local SQLite
+
 # LIBRERIAS
 import pandas as pd
 import sqlite3
-import ssl
-import urllib.request
-
-# Configurar SSL para entornos con certificados autofirmados
-ssl._create_default_https_context = ssl._create_unverified_context
 
 # Descarga SQL remota desde SDSS DR18
 url = 'https://skyserver.sdss.org/dr18/SkyServerWS/SearchTools/SqlSearch?format=csv&cmd=SELECT%20TOP%205000%20s.class%2C%20s.z%2C%20p.psfMag_g%20as%20g%2C%20p.psfMag_r%20as%20r%20FROM%20PhotoObj%20AS%20p%20JOIN%20SpecObj%20AS%20s%20ON%20p.objid%20%3D%20s.bestobjid'
 print("Descargando datos de SDSS DR18...")
-data = pd.read_csv(url, skiprows=[0])
+data = pd.read_csv(url, skiprows=[0]) # Se omite la primera fila ya que es el nombre de la tabla; de lo contrario, queda como única columna
 
-# Eliminar objetos de clase STAR (no son galaxias ni quásares)
+# Eliminar objetos de clase STAR
 data = data[data['class'] != 'STAR'].reset_index(drop=True)
 
 # Calcular índice de color g - r
@@ -21,14 +18,12 @@ data['g_r'] = data['g'] - data['r']
 # Validación de datos antes de guardar
 print("\n--- Validación de Datos ---")
 print(f"Registros: {len(data)}")
-print(f"\nValores nulos por columna:")
-print(data.isnull().sum())
 print(f"\nEstadísticas descriptivas:")
 print(data[['z', 'g', 'r', 'g_r']].describe())
 print(f"\nDistribución por clase:")
 print(data['class'].value_counts())
 
-# Migrar a SQLite local (patrón Clase 4)
+# Guardar datos en base local SQLite
 print("\nGuardando en base de datos local...")
 conexion = sqlite3.connect('datos_mision.db')
 data.to_sql('objetos', conexion, if_exists='replace', index=True)
