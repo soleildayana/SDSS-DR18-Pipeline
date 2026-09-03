@@ -12,7 +12,7 @@ echo "=========================================="
 
 # Paso 1: Descarga SQL remota y creación de BD
 echo ""
-echo "1️⃣  Descargando datos y creando base de datos local..."
+echo "1️Descargando datos y creando base de datos local..."
 python3 constructor_db.py || {
     echo "❌ Error en constructor_db.py"
     exit 1
@@ -20,7 +20,7 @@ python3 constructor_db.py || {
 
 # Paso 2: Análisis visual y generación de gráfico
 echo ""
-echo "2️⃣  Generando análisis visual..."
+echo "Generando gráfico..."
 python3 analisis_visual.py || {
     echo "❌ Error en analisis_visual.py"
     exit 1
@@ -30,11 +30,12 @@ python3 analisis_visual.py || {
 echo ""
 echo "=========================================="
 echo "✅ Pipeline completado exitosamente"
+echo "✅ ¡Universo expandiéndose exitosamente!"
 echo "=========================================="
 echo ""
 echo "Archivos generados:"
 echo "  📊 resultado.png    — Gráfico Color Index vs Redshift"
 echo "  🗄️  datos_mision.db  — Base de datos local SQLite"
 echo ""
-echo "Próximo paso: Revisar resultado.png y actualizar README.md"
+echo "Revisa el resultado abriendo resultado.png"
 echo "=========================================="
